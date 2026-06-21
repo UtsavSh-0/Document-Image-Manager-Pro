@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document Image Manager Pro</title>
+<meta name="description" content="Desktop-style document & photo processor for CCC, O Level, MSME, Scholarship, Admission and Government forms." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="stylesheet" href="dimp.css" />
+</head>
+<body>
+
+<div class="app">
+  <!-- ============ SIDEBAR ============ -->
+  <div class="sidebar">
+    <div class="side-brand">
+      <div class="side-seal">DM</div>
+      <div><b>Document Manager</b><span>Pro Edition</span></div>
+    </div>
+    <div class="side-nav" id="sideNav">
+      <div class="nav-group-label">Overview</div>
+      <div class="nav-item" data-view="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Dashboard</div>
+
+      <div class="nav-group-label">Processors</div>
+      <div class="nav-item" data-view="workspace" data-cat="ccc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>CCC / O Level</div>
+      <div class="nav-item" data-view="workspace" data-cat="msme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>MSME</div>
+      <div class="nav-item" data-view="workspace" data-cat="custom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94L5.34 21.34a2 2 0 0 1-2.83-2.83L10.65 10.4a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Custom Processor</div>
+
+      <div class="nav-group-label">Manage</div>
+      <div class="nav-item" data-view="filemanager"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>File Manager</div>
+      <div class="nav-item" data-view="export"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Export Center</div>
+      <div class="nav-item" data-view="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Search &amp; History</div>
+      <div class="nav-item" data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5h0a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</div>
+    </div>
+    <div class="side-foot">
+      <button class="btn btn-ghost btn-sm" id="themeToggle" style="flex:1;color:#cfd3df;">🌓 Theme</button>
+    </div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="topTitle">Dashboard</h2>
+        <div class="sub" id="topSub">Overview of your processing activity</div>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="applicant-chip" id="applicantChip" style="display:none;">
+        <span class="dot"></span><span id="applicantChipText"></span>
+        <button class="btn btn-ghost btn-sm" id="closeWorkspaceBtn">✕</button>
+      </div>
+      <button class="btn btn-saffron" id="newApplicantBtn">+ New Applicant</button>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="view active" id="view-dashboard">
+      <div class="stat-grid">
+        <div class="panel stat-card"><div class="num" id="statWorkspaces">0</div><div class="lbl">Applicant Folders</div></div>
+        <div class="panel stat-card"><div class="num" id="statDocs">0</div><div class="lbl">Documents Processed</div></div>
+        <div class="panel stat-card"><div class="num" id="statCompliant">0%</div><div class="lbl">Compliance Rate</div></div>
+        <div class="panel stat-card"><div class="num" id="statPresets">0</div><div class="lbl">Custom Presets</div></div>
+      </div>
+
+      <div class="section-title"><h3>Processing Categories</h3></div>
+      <div class="cat-grid">
+        <div class="panel cat-card" data-open-cat="ccc">
+          <h3>CCC / O Level</h3>
+          <p>Photo, Signature &amp; Left Thumb Impression — exact pixel, DPI &amp; size compliance.</p>
+          <div class="tagrow"><span>132×170</span><span>5–50KB</span><span>96–300 DPI</span></div>
+        </div>
+        <div class="panel cat-card" data-open-cat="msme">
+          <h3>MSME</h3>
+          <p>Passport photo, signature, fingerprint and certificate documents.</p>
+          <div class="tagrow"><span>≤20KB photo/sign</span><span>≤300KB docs</span></div>
+        </div>
+        <div class="panel cat-card" data-open-cat="custom">
+          <h3>Custom Processor</h3>
+          <p>Build your own spec — UPSC, SSC, Scholarship, University Admission, anything.</p>
+          <div class="tagrow"><span>Any size</span><span>Any DPI</span><span>Saved presets</span></div>
+        </div>
+      </div>
+
+      <div class="section-title"><h3>Recent Applicant Folders</h3></div>
+      <div class="recent-list" id="recentList"></div>
+    </div>
+
+    <!-- ===== WORKSPACE ===== -->
+    <div class="view" id="view-workspace">
+      <div class="panel ws-bar">
+        <div class="field"><label class="lab">Applicant Name</label><input id="wsName" placeholder="e.g. Utsav Sharma" /></div>
+        <div class="field"><label class="lab">Mobile Number</label><input id="wsMobile" class="mono" placeholder="9876543210" /></div>
+        <button class="btn btn-navy" id="wsSaveBtn">💾 Save Folder</button>
+      </div>
+
+      <div class="cat-tabs" id="catTabs">
+        <div class="cat-tab" data-cat="ccc">CCC / O Level</div>
+        <div class="cat-tab" data-cat="msme">MSME</div>
+        <div class="cat-tab" data-cat="custom">Custom</div>
+      </div>
+
+      <div class="note" id="bulkNote">Tip: click a slot to select it, then paste (<span class="kbd">Ctrl+V</span>) to drop an image straight into it. Use <b>Bulk Upload</b> below to auto-match multiple files at once.</div>
+      <div style="margin-bottom:14px;display:flex;gap:8px;">
+        <button class="btn btn-outline btn-sm" id="bulkUploadBtn">📦 Bulk Upload</button>
+        <input type="file" id="bulkFileInput" class="visually-hidden" multiple accept="image/*,application/pdf" />
+      </div>
+
+      <div class="slot-grid" id="slotGrid"></div>
+      <div class="panel unassigned-tray" id="unassignedTray" style="display:none;">
+        <h4>Unassigned uploads — choose a document type</h4>
+        <div id="unassignedList"></div>
+      </div>
+    </div>
+
+    <!-- ===== FILE MANAGER ===== -->
+    <div class="view" id="view-filemanager">
+      <div class="bulk-rename-bar">
+        <input id="bulkRenamePattern" placeholder="Bulk rename pattern e.g. {NAME}_{DOC}" style="min-width:260px;" />
+        <button class="btn btn-outline btn-sm" id="bulkRenameApply">Apply to all files</button>
+        <span style="color:var(--ink-soft);font-size:11.5px;">Tokens: <span class="kbd">{NAME}</span> <span class="kbd">{MOBILE}</span> <span class="kbd">{DOC}</span></span>
+      </div>
+      <div class="panel" style="overflow-x:auto;">
+        <table class="fm">
+          <thead><tr><th>File</th><th>Type</th><th>Dimensions</th><th>DPI</th><th>Size</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="fmBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== EXPORT CENTER ===== -->
+    <div class="view" id="view-export">
+      <div class="panel" style="padding:18px;margin-bottom:16px;">
+        <div class="section-title"><h3>Applicant Folder Export</h3></div>
+        <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 12px;">Exports every processed document in the current workspace as <span class="mono" id="zipNamePreview">APPLICANT.zip</span></p>
+        <button class="btn btn-saffron" id="exportZipBtn">⬇ Download Applicant Folder (ZIP)</button>
+      </div>
+      <div class="panel" style="padding:18px;">
+        <div class="section-title"><h3>Individual Files</h3></div>
+        <div class="export-list" id="exportList"></div>
+      </div>
+    </div>
+
+    <!-- ===== SEARCH & HISTORY ===== -->
+    <div class="view" id="view-history">
+      <div class="history-search">
+        <input id="historySearch" placeholder="Search by applicant name, mobile number or date (YYYY-MM-DD)…" />
+      </div>
+      <div class="recent-list" id="historyList"></div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div class="view" id="view-settings">
+      <div class="section-title"><h3>Custom Presets</h3></div>
+      <div class="preset-grid" id="presetGrid"></div>
+      <div class="panel" style="padding:18px;margin-bottom:20px;">
+        <div class="section-title"><h3>Create / Edit Preset</h3></div>
+        <div class="form-grid">
+          <div><label class="lab">Preset Name</label><input id="pName" placeholder="e.g. UPSC, SSC, Scholarship" /></div>
+          <div><label class="lab">Format</label><select id="pFormat"><option value="jpg">JPG</option><option value="png">PNG</option></select></div>
+          <div><label class="lab">Width (px, blank = no resize)</label><input id="pWidth" type="number" class="mono" /></div>
+          <div><label class="lab">Height (px, blank = no resize)</label><input id="pHeight" type="number" class="mono" /></div>
+          <div><label class="lab">Min DPI</label><input id="pDpiMin" type="number" class="mono" value="96" /></div>
+          <div><label class="lab">Max DPI</label><input id="pDpiMax" type="number" class="mono" value="300" /></div>
+          <div><label class="lab">Min Size (KB)</label><input id="pMinKb" type="number" class="mono" value="5" /></div>
+          <div><label class="lab">Max Size (KB)</label><input id="pMaxKb" type="number" class="mono" value="50" /></div>
+          <div class="full"><label class="lab">Compression Quality <span id="pQualVal" class="mono"></span></label><input id="pQuality" type="range" min="40" max="95" value="85" /></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;">
+          <button class="btn btn-saffron" id="presetSaveBtn">Save Preset</button>
+          <button class="btn btn-outline" id="presetClearBtn">Clear Form</button>
+        </div>
+      </div>
+
+      <div class="section-title"><h3>General</h3></div>
+      <div class="panel" style="padding:18px;">
+        <div class="form-grid">
+          <div><label class="lab">Default JPEG Quality</label><div class="range-line" style="display:flex;align-items:center;gap:8px;"><input id="defQuality" type="range" min="40" max="95" style="flex:1;"/><span id="defQualVal" class="mono"></span></div></div>
+          <div><label class="lab">Theme</label><select id="themeSelect"><option value="light">Light</option><option value="dark">Dark</option></select></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:8px;">
+          <button class="btn btn-danger" id="clearAllDataBtn">🗑 Clear All Data (presets, history &amp; files)</button>
+        </div>
+        <p style="font-size:11px;color:var(--ink-soft);margin-top:10px;">Storage: workspaces &amp; presets in <span class="mono">localStorage</span>, processed files in <span class="mono">IndexedDB</span>. Nothing is uploaded to any server.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Manual Editor Modal ===== -->
+<div class="overlay" id="editorOverlay">
+  <div class="editor panel">
+    <div class="editor-head">
+      <h3 style="margin:0;font-size:15px;" id="editorTitle">Manual Edit</h3>
+      <button class="btn btn-ghost" id="editorClose">✕</button>
+    </div>
+    <div class="editor-body">
+      <div class="editor-canvas-wrap" id="editorCanvasWrap">
+        <canvas id="editorCanvas" width="400" height="400"></canvas>
+      </div>
+      <div class="editor-controls">
+        <div class="quickrot">
+          <button class="btn btn-outline btn-sm" data-rot="-90">⟲ 90°</button>
+          <button class="btn btn-outline btn-sm" data-rot="90">⟳ 90°</button>
+        </div>
+        <div class="field"><label>Rotate <span id="vRot">0°</span></label><input type="range" id="eRotate" min="-45" max="45" value="0" /></div>
+        <div class="field"><label>Zoom <span id="vZoom">100%</span></label><input type="range" id="eZoom" min="100" max="300" value="100" /></div>
+        <div class="field"><label>Brightness <span id="vBright">100%</span></label><input type="range" id="eBright" min="40" max="180" value="100" /></div>
+        <div class="field"><label>Contrast <span id="vContrast">100%</span></label><input type="range" id="eContrast" min="40" max="180" value="100" /></div>
+        <div class="toggle-row"><input type="checkbox" id="eSharpen" /><label for="eSharpen">Sharpen</label></div>
+        <div class="toggle-row"><input type="checkbox" id="eWhiteBg" /><label for="eWhiteBg">Flatten background to white</label></div>
+        <p style="font-size:10.5px;color:var(--ink-soft);">Drag the image to pan. Output is recropped to this slot's target size.</p>
+      </div>
+    </div>
+    <div class="editor-foot">
+      <button class="btn btn-outline" id="editorCancel">Cancel</button>
+      <button class="btn btn-saffron" id="editorApply">Apply &amp; Reprocess</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="dimp.js"></script>
+</body>
+</html>
